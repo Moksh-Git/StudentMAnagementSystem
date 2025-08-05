@@ -54,4 +54,16 @@ export const insertCourse = (name, fees, success, error) => {
   });
 };
 
+// getting Data
 
+export const getCourses = callback => {
+  db.transaction(tx => {
+    tx.executeSql('SELECT * FROM courses', [], (_, { rows }) => {
+      const result = [];
+      for (let i = 0; i < rows.length; i++) {
+        result.push(rows.item(i));
+      }
+      callback(result);
+    });
+  });
+};
