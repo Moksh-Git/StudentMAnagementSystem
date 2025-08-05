@@ -1,8 +1,8 @@
-import SQLight from '@types/react-native-sqlite-storage';
+import SQLite from 'react-native-sqlite-storage';
 
 // db creation
 
-const db = SQLight.openDatabase(
+const db = SQLite.openDatabase(
   {
     name: 'studentaap.db',
     location: 'default',
@@ -20,15 +20,15 @@ const db = SQLight.openDatabase(
 export const initDB = () => {
   db.transaction(tx => {
     tx.executeSql(`
-        CREATE TABLE IF NOT EXIST courses (
-            id INTEGER PRIMARY KEY AUTO INCREMENT,
+        CREATE TABLE IF NOT EXISTS courses (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             fees INTEGER
         );
     `);
     tx.executeSql(`
-        CREATE TABLE IF NOT EXIST subjects (
-            id INTEGER PRIMARY KEY AUTO INCREMENT,
+        CREATE TABLE IF NOT EXISTS subjects (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             course_id INTEGER,
             FOREIGN KEY(course_id) REFERENCES courses(id)
@@ -53,3 +53,5 @@ export const insertCourse = (name, fees, success, error) => {
     );
   });
 };
+
+
