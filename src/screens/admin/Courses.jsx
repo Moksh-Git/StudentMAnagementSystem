@@ -15,12 +15,12 @@ const Courses = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    getCourseList()
+    getCourseList();
   }, []);
 
-  const getCourseList = () =>{
+  const getCourseList = () => {
     getCourses(result => setCourses(result));
-  }
+  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -31,19 +31,26 @@ const Courses = () => {
         </View>
         <View style={styles.icons}>
           <TouchableOpacity
-            onPress={()=>{
-              deleteCourse(item.id, (res)=>{
-                Alert.alert(item.name +  " deleted successfully")
-                getCourseList()
-              },err=>{
-                Alert.alert("Error Occured")
-              }
-            )
+            onPress={() => {
+              deleteCourse(
+                item.id,
+                res => {
+                  Alert.alert(item.name + ' deleted successfully');
+                  getCourseList();
+                },
+                err => {
+                  Alert.alert('Error Occured');
+                },
+              );
             }}
           >
             <Text>Delete</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('AddCourse', { type: 'edit', data: item });
+            }}
+          >
             <Text>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -57,7 +64,7 @@ const Courses = () => {
       <TouchableOpacity
         style={styles.addCourseBtn}
         onPress={() => {
-          navigation.navigate('AddCourse');
+          navigation.navigate('AddCourse', { type: 'new' });
         }}
       >
         <Text style={styles.btnText}>+ Add Course</Text>
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
   },
-  icons:{
-    rowGap: 10
-  }
+  icons: {
+    rowGap: 10,
+  },
 });
