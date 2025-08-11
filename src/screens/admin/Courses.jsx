@@ -4,24 +4,49 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { getCourses } from '../../db/Database';
+import { deleteCourse, getCourses } from '../../db/Database';
 
 const Courses = () => {
   const navigation = useNavigation();
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    getCourses(result => setCourses(result));
+    getCourseList()
   }, []);
+
+  const getCourseList = () =>{
+    getCourses(result => setCourses(result));
+  }
 
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.courseItem}>
-        <Text style={styles.courseName}>{item.name}</Text>
-        <Text style={styles.fees}>₹ {item.fees}</Text>
+        <View>
+          <Text style={styles.courseName}>{item.name}</Text>
+          <Text style={styles.fees}>₹ {item.fees}</Text>
+        </View>
+        <View style={styles.icons}>
+          <TouchableOpacity
+            onPress={()=>{
+              deleteCourse(item.id, (res)=>{
+                Alert.alert(item.name +  " deleted successfully")
+                getCourseList()
+              },err=>{
+                Alert.alert("Error Occured")
+              }
+            )
+            }}
+          >
+            <Text>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>Edit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -53,19 +78,21 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
     alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems:'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    marginTop:10
+    marginTop: 10,
   },
-  fees:{
-    color:'green',
+  fees: {
+    color: 'green',
     fontSize: 20,
-    fontWeight: '600'
+    fontWeight: '600',
   },
-  courseName:{
+  courseName: {
     fontSize: 30,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   addCourseBtn: {
     width: 200,
@@ -82,4 +109,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
   },
+  icons:{
+    rowGap: 10
+  }
 });

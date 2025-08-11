@@ -42,20 +42,30 @@ export const initDB = () => {
 export const insertCourse = (name, fees, success, error) => {
   db.transaction(tx => {
     tx.executeSql(
-      'INSERT INTO courses (name,fees) VALUES (?,?)',
-      [name, fees],
-      (_, res) => {
-        success(res);
+      'SELECT * FROM courses WHERE name=?',
+      [name],
+      (_, { rows }) => {
+        if (rows.length > 0) {
+          error('course already exist');
+        } else {
+          tx.executeSql(
+            'INSERT INTO courses (name,fees) VALUES (?,?)',
+            [name, fees],
+            (_, res) => {
+              success(res);
+            },
+            (_, err) => {
+              error(err);
+            },
+          );
+        }
       },
-      (_, err) => {
-        error(err);
-      },
+      (_, err) => error(err)
     );
   });
 };
 
 // getting Data
-
 export const getCourses = callback => {
   db.transaction(tx => {
     tx.executeSql('SELECT * FROM courses', [], (_, { rows }) => {
@@ -65,5 +75,21 @@ export const getCourses = callback => {
       }
       callback(result);
     });
+  });
+};
+
+// Deleting data
+export const deleteCourse = (id, success, error) => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'DELETE FROM courses WHERE id=?',
+      [id],
+      res => {
+        success(res);
+      },
+      err => {
+        error(err);
+      },
+    );
   });
 };

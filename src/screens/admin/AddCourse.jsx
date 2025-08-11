@@ -11,6 +11,10 @@ import { insertCourse } from '../../db/Database';
 const AddCourse = () => {
   const [name, setName] = useState('');
   const [fees, setFees] = useState('');
+  const [message, setMessage] = useState({
+    type: '',
+    msg: '',
+  });
 
   return (
     <View style={styles.container}>
@@ -26,6 +30,19 @@ const AddCourse = () => {
         placeholder="Enter Fees.."
         style={styles.input}
       />
+      {message.msg != '' && (
+        <Text
+          style={[
+            {
+              color: message.type === 'error' ? 'red' : 'green',
+            },
+            styles.messageStyle,
+          ]}
+        >
+          {message.msg}
+        </Text>
+      )}
+
       <TouchableOpacity
         onPress={() => {
           insertCourse(
@@ -33,10 +50,12 @@ const AddCourse = () => {
             parseInt(fees),
             res => {
               console.log('response: ', res);
-              setName('')
-              setFees('')
+              setName('');
+              setFees('');
+              setMessage({ type: 'success', msg: 'course added succesfully' });
             },
             err => {
+              setMessage({ type: 'error', msg: err });
               console.log('error: ', err);
             },
           );
@@ -74,6 +93,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+  },
+  messageStyle: {
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    marginTop: 10,
   },
   btnText: {
     color: 'white',
