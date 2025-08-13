@@ -11,7 +11,7 @@ const MarkAttendance = () => {
   const route = useRoute();
   const data = route.params?.data;
   useEffect(() => {
-    const date = new Date('2025-08-11');
+    const date = new Date()
     const mDate = date.toISOString().split('T')[0];
     console.log('mDate', mDate);
     setAttendanceTime(mDate);
@@ -32,7 +32,7 @@ const MarkAttendance = () => {
         disabled={isSunday}
         onPress={() => {
           markAttendance(
-            currentDate,
+            attendanceTime,
             data.id,
             'PRESENT',
             () => {
@@ -51,7 +51,7 @@ const MarkAttendance = () => {
         disabled={isSunday}
         onPress={() => {
           markAttendance(
-            currentDate,
+            attendanceTime,
             data.id,
             'ABSENT',
             () => {

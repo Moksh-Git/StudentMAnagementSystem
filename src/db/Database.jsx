@@ -283,3 +283,25 @@ export const markAttendance = (date,student_id,status,success,error) => {
     }
   )
 }
+
+export const getAttendanceByMonth = (studentId,month,year,callback,error) => {
+  const mMonth = month.toString().padStart(2,'0')
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        "SELECT * FROM attendance WHERE student_id=? AND strftime('%m',date)=? AND strftime('%Y',date)=? ORDER BY date ASC",
+        [studentId,mMonth,year.toString()],
+        (_,{rows})=>{
+          const data=[]
+          for(let i=0;i<rows.length;i++){
+            data.push(rows.item(i))
+          }
+          callback(data)
+        },
+        (_,err)=>{
+          error(err)
+        }
+      )
+    }
+  )
+}

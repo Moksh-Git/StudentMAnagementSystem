@@ -1,6 +1,7 @@
 import {useRoute} from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
+import { getAttendanceByMonth } from '../../db/Database';
 
 const CheckAttendance = () => {
   const [currentDate, setCurrentDate] = useState('');
@@ -13,18 +14,18 @@ const CheckAttendance = () => {
     const year = date.getFullYear();
     console.log(month);
     console.log(year);
-    // getAttendanceByMonth(
-    //   route.params.data.id,
-    //   month,
-    //   year,
-    //   res => {
-    //     console.log('data', res);
-    //     setAttendances(res);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   },
-    // );
+    getAttendanceByMonth(
+      route.params.data.id,
+      month,
+      year,
+      res => {
+        console.log('data', res);
+        setAttendances(res);
+      },
+      err => {
+        console.log(err);
+      },
+    );
 
     const formattedDate = date.toLocaleDateString('en-GB', {
       year: 'numeric',
