@@ -305,3 +305,51 @@ export const getAttendanceByMonth = (studentId,month,year,callback,error) => {
     }
   )
 }
+
+export const getCourseDetail = (courseId,callback,error) => {
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        'SELECT * FROM courses WHERE id=?',
+        [courseId],
+        (_,{rows})=>{
+          if(rows.length>0){
+            callback(rows.item(0))
+          }
+          else{
+            error("course not found")
+          }
+        },
+        (_,err)=>{
+          error(err)
+        }
+      )
+    }
+  )
+}
+
+export const getStudentSubject = (courseId,callback,error) => {
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        'SELECT * FROM subjects WHERE course_id=?',
+        [courseId],
+        (_,{rows})=>{
+          if(rows.length>0){
+            let data = []
+            for(let i=0;i<rows.length;i++){
+              data.push(rows.item(i))
+            }
+            callback(data)
+          }
+          else{
+            error("subjects not found")
+          }
+        },
+        (_,err)=>{
+          error(err)
+        }
+      )
+    }
+  )
+}

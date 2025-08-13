@@ -6,6 +6,8 @@ import Register from '../screens/student/Register';
 import Dashboard from '../screens/student/Dashboard';
 import MarkAttendance from '../screens/student/MarkAttendance';
 import CheckAttendance from '../screens/student/CheckAttendance';
+import MyCourse from '../screens/student/MyCourse';
+import MyFees from '../screens/student/MyFees';
 const Stack = createStackNavigator();
 const StudentNavigator = () => {
   return (
@@ -23,6 +25,8 @@ const StudentNavigator = () => {
       />
       <Stack.Screen name="MarkAttendance" component={MarkAttendance} />
       <Stack.Screen name="CheckAttendance" component={CheckAttendance} />
+      <Stack.Screen name="MyCourse" component={MyCourse} />
+      <Stack.Screen name="MyFees" component={MyFees} />
     </Stack.Navigator>
   );
 };
