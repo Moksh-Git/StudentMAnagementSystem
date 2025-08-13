@@ -34,11 +34,35 @@ export const initDB = () => {
             FOREIGN KEY(course_id) REFERENCES courses(id)
         );
     `);
+
+    tx.executeSql(`
+        CREATE TABLE IF NOT EXISTS students(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          email TEXT UNIQUE NOT NULL,
+          password TEXT NOT NULL,
+          course_id INTEGER,
+          FOREIGN KEY(course_id) REFERENCES courses(id)
+        );
+    `)
+
+    tx.executeSql(`
+        CREATE TABLE IF NOT EXISTS attendance (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          student_id INTEGER,
+          date TEXT,
+          status TEXT,
+          FOREIGN KEY (student_id) REFERENCES students(id)
+        );
+    `)
+
+    // db.transaction(tx => {
+    //   tx.executeSql('DROP TABLE IF EXISTS students');
+    // });
   });
 };
 
 //CRUD
-
 // 1. Insert Operation
 export const insertCourse = (name, fees, success, error) => {
   db.transaction(tx => {
@@ -169,24 +193,93 @@ export const getSubjects = (success, error) => {
   });
 };
 
-export const getSubjectbyCourseId = (courseId,callback,error) => {
+export const getSubjectbyCourseId = (courseId, callback, error) => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'SELECT * FROM subjects WHERE course_id = ?',
+      [courseId],
+      (_, { rows }) => {
+        if (rows.length > 0) {
+          const items = [];
+          for (let i = 0; i < rows.length; i++) {
+            items.push(rows.item(i));
+          }
+          callback(items);
+        } else {
+          error('no subjects exist in this course');
+        }
+      },
+    );
+  });
+};
+
+export const insertStudent = (
+  name,
+  email,
+  password,
+  courseId,
+  success,
+  error,
+) => {
+  db.transaction(tx => {
+    tx.executeSql(
+      'INSERT INTO students(name,email,password,course_id) VALUES (?,?,?,?)',
+      [name, email, password, courseId],
+      (_, res) => {
+        success(res);
+      },
+      (_, err) => {
+        error(err);
+      },
+    );
+  });
+};
+
+export const loginStudent = (email,password,callback,error) => {
+  db.transaction(
+    tx=>{
+      tx.executeSql(
+        'SELECT * FROM students WHERE email=? AND password=?',
+        [email,password],
+        (_,{rows})=>{
+          if(rows.length>0){
+            callback(rows.item(0))
+          }else{
+            error("no user found")
+          }
+        },
+        (_,err)=>{
+          error("no user found")          
+        }
+      )
+    }
+  )
+}
+
+export const markAttendance = (date,student_id,status,success,error) => {
   db.transaction(
     tx => {
       tx.executeSql(
-        'SELECT * FROM subjects WHERE course_id = ?',
-        [courseId],
+        'SELECT * FROM attendance WHERE date=? AND student_id=?',
+        [date,student_id],
         (_,{rows})=>{
           if(rows.length>0){
-            const items = [];
-            for(let i=0;i<rows.length; i++){
-              items.push(rows.item(i))
-            }
-            callback(items)
-          }else{
-            error("no subjects exist in this course")
+            error("Already Marked Attendence")
+          }
+          else{
+            tx.executeSql(
+              'INSERT INTO attendance (student_id,date,status) VALUES (?,?,?)',
+              [student_id,date,status],
+              (_,res)=>{
+                success(res)
+              },
+              (_,err)=>{
+                error(err)
+              }
+            )
           }
         }
       )
     }
   )
-};
+}
