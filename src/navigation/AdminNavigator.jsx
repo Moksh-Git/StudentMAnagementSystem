@@ -4,12 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Courses from '../screens/admin/Courses'
 import AddCourse from '../screens/admin/AddCourse'
 import AddSubject from '../screens/admin/AddSubject'
+import Subjects from '../screens/admin/Subjects'
 const Stack = createStackNavigator()
 
 const AdminNavigator = () => {
   return (
     <Stack.Navigator>
         <Stack.Screen name='Courses' component={Courses}/>
+        <Stack.Screen name='Subjects' component={Subjects}/>
         <Stack.Screen name='AddCourse' component={AddCourse}/>
         <Stack.Screen name='AddSubject' component={AddSubject}/>
     </Stack.Navigator>

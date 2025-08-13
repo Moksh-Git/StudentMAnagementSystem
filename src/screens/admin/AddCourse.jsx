@@ -44,7 +44,7 @@ const AddCourse = () => {
         placeholder="Enter Fees.."
         style={styles.input}
       />
-      {message.msg != '' && (
+      {message.msg !== '' && (
         <Text
           style={[
             {

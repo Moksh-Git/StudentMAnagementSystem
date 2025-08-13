@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^7.4.5",
     "react": "19.1.0",
     "react-native": "0.80.2",
+    "react-native-element-dropdown": "^2.12.4",
     "react-native-gesture-handler": "^2.27.2",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.13.1",
