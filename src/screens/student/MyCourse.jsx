@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 
 const MyCourse = () => {
   const route = useRoute();
-  const [detail, setDetail] = useState(null);
+  const [detail, setDetail] = useState('');
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {

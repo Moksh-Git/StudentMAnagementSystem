@@ -56,6 +56,16 @@ export const initDB = () => {
         );
     `)
 
+    tx.executeSql(`
+        CREATE TABLE IF NOT EXISTS fees (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          student_id INTEGER,
+          date TEXT,
+          amount_paid INTEGER,
+          FOREIGN KEY (student_id) REFERENCES students(id)
+        );
+    `)
+
     // db.transaction(tx => {
     //   tx.executeSql('DROP TABLE IF EXISTS students');
     // });
@@ -345,6 +355,58 @@ export const getStudentSubject = (courseId,callback,error) => {
           else{
             error("subjects not found")
           }
+        },
+        (_,err)=>{
+          error(err)
+        }
+      )
+    }
+  )
+}
+
+export const submitFees = (studentId, amount, date, success, error) => {
+  db.transaction(
+    tx=>{
+      tx.executeSql(
+        'INSERT INTO fees (student_id,amount_paid,date) VALUES (?,?,?)',
+        [studentId, amount, date,],
+        (_,res)=>{success(res)},
+        (_,err)=>{error(err)}
+      )
+    }
+  )
+}
+
+export const getRemainingFees = (studentId, callback, error) => {
+  db.transaction(
+    tx=>{
+      tx.executeSql(
+        'SELECT SUM(amount_paid) as total_paid FROM fees WHERE student_id=?',
+        [studentId],
+        (_,{rows})=>{
+          const total = rows.item(0).total_paid || 0
+          callback(total)
+        },
+        (_,err)=>{error(err)}
+      )
+    }
+  )
+}
+
+export const getPaymentHistory = (studentId, callback, error) => {
+  db.transaction(
+    tx=>{
+      tx.executeSql(
+        'SELECT * FROM fees WHERE student_id=?',
+        [studentId],
+        (_,{rows})=>{
+          const data = []
+          if(rows.length>0){
+            for(let i=0;i<rows.length;i++){
+              data.push(rows.item(i))
+            }
+          }
+          callback(data)
         },
         (_,err)=>{
           error(err)
