@@ -1,3 +1,26 @@
+# App Screenshots
+> Selecting user type->
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-41-50-07_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/e8b7f5ee-4094-4afa-b09c-c13acd20a88e" />
+<br/>
+<h5>user type = Admin</h5>
+<br/>
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-42-29-56_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/42980b4b-b0ba-45b7-b8b2-7e485592bfbc" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-42-38-50_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/89259164-6728-47df-8d65-251096f502dd" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-42-54-76_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/8875a0bc-07c9-4df0-b80f-5eecaf18ad45" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-43-41-71_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/8cd8f061-6425-40a9-b62e-5ab1cc9bd975" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-44-47-15_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/437c0bf6-d289-4f4a-b15e-4b18ef62517e" />
+
+<h5>user type = Student</h5>
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-45-07-71_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/20db54bd-be9b-4788-9179-71385806a05e" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-45-03-68_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/10ad723c-cdb5-4059-a8db-f4762a9fb0dd" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-48-11-23_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/a5bc5f3b-7143-4fbc-92c2-e90214e30d38" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-48-24-46_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/bbc6f849-8327-4642-a922-bf3913a535f5" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-48-29-60_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/a3fdf71c-3e3a-4bf5-9b7d-e26c8d1509e3" />
+<img width="270" height="540" alt="Screenshot_2025-10-29-18-48-33-64_1cc4c6ede08edfdb540c7da8db2eaa8b" src="https://github.com/user-attachments/assets/6585aaf9-6e2c-4100-87b6-fc7f8137df32" />
+
+
+<br/>
+<br/>
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
@@ -7,6 +30,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 ## Step 1: Start Metro
 
 First, you will need to run **Metro**, the JavaScript build tool for React Native.
+
 
 To start the Metro dev server, run the following command from the root of your React Native project:
 
