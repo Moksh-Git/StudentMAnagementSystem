@@ -62,32 +62,7 @@ const Courses = () => {
   return (
     <View style={styles.container}>
       <FlatList data={courses} renderItem={renderItem} />
-      <TouchableOpacity
-        style={[styles.addCourseBtn, {bottom:110}]}
-        onPress={() => {
-          navigation.navigate('AddSubject', { type: 'new' });
-        }}
-      >
-        <Text style={styles.btnText}>+ Add Subjects</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.addCourseBtn}
-        onPress={() => {
-          navigation.navigate('AddCourse', { type: 'new' });
-        }}
-      >
-        <Text style={styles.btnText}>+ Add Course</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.addCourseBtn, {bottom:170}]}
-        onPress={() => {
-          navigation.navigate('Subjects');
-        }}
-      >
-        <Text style={styles.btnText}>View Subjects</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 };

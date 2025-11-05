@@ -13,6 +13,7 @@ const AddCourse = () => {
   const route = useRoute();
 
   const navigation = useNavigation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (route.params.type === 'edit') {
       navigation.setOptions({ title: 'Update Course' });
@@ -29,7 +30,7 @@ const AddCourse = () => {
     type: '',
     msg: '',
   });
-
+  
   return (
     <View style={styles.container}>
       <TextInput

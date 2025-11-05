@@ -7,6 +7,7 @@ const UserSelection = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Choose User Type</Text>
+      
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {

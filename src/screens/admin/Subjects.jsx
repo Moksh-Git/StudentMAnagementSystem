@@ -124,7 +124,7 @@ const Subjects = () => {
 
       <FlatList
         data={subjects}
-        contentContainerStyle={{ marginTop: 50 }}
+        contentContainerStyle={{ marginTop: 30 }}
         renderItem={({ item }) => {
           return (
             <View style={styles.subjectItem}>
